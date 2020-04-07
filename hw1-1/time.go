@@ -9,14 +9,12 @@ import (
 
 func main() {
 	time, err := ntp.Time("0.beevik-ntp.pool.ntp.org")
-	if err == nil {
-		fmt.Println("Now is",time)
-		return
-
-	} else {
+	if err != nil {
 		_,_ = fmt.Fprintf(os.Stderr, "Error message: %v\n", err)
-		os.Exit(1)
-	}
+		os.Exit(1)}
+
+		fmt.Println("Now is",time)
+
 
 
 }
