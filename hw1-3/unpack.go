@@ -1,38 +1,44 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
-	//"log"
 )
 
+var ErrIncorrectInput = errors.New("incorrect input, string contains only digits")
 
 func Unpack(str string)(string,  error){
 	sl:= strings.Split(str,"")
 	var result string
 	onlyDigit := true
+	var builder strings.Builder
 	for i:=0; i < len(str);i++{
 		b,err:= strconv.Atoi(sl[i])
 		if err != nil {
-			result += sl[i]
+			builder.WriteString(sl[i])
 			onlyDigit = false
 		} else {
 		if i == 0{
+			builder.WriteString(sl[i])
 			continue
 		}
-		result += strings.Repeat(sl[i-1], b-1)
+		for x:=0; x<b-1; x++ {
+			builder.WriteString(sl[i-1])
 		}
+
+		}
+		result = builder.String()
 	}
 	if onlyDigit {
-		fmt.Println("Incorrect input")
-		os.Exit(0)
+		return "Something went wrong:", ErrIncorrectInput
+
 	}
 	return result, nil
 }
 func main() {
-	str := "sssss5"
+	str := "4d5f7asd7sdd7qee"
 	fmt.Println(Unpack(str))
 
 }

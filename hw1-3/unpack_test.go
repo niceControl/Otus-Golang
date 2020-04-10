@@ -11,7 +11,10 @@ func TestUnpack(t *testing.T) {
 	assert.Equal(t, "aaaabccddddde", unpacked, "Unpacked stings should be matched")
 	unpacked, _ = Unpack("abcd")
 	assert.Equal(t, "abcd", unpacked, "Unpacked stings should be matched")
-	err, _ := Unpack("444")
-	assert.Equal(t,"Incorrect input", err)
+	_, err := Unpack("44234234")
+	assert.NotNil(t, err)
+	_, err = Unpack("4423s4234")
+	assert.Nil(t, err)
+
 
 }
